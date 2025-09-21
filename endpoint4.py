@@ -43,7 +43,7 @@ def start_batch(purchase_order_id: str, sales_order_id: str) -> str:
     Returns the generated batch_id.
     """
     db=get_database()
-    collection = db["orders_accepted"]   # <-- use batches collection
+    collection = db["shipments"]   # <-- use batches collection
     batch_id = f"BATCH-{str(uuid.uuid4())[:8]}"
 
     existing_doc = collection.find_one({"sales_order_id": sales_order_id})
