@@ -1,15 +1,13 @@
-from fastapi import FastAPI, HTTPException
+
 from pydantic import BaseModel
-from pymongo import MongoClient
 from datetime import datetime
-from bson import ObjectId
+from db import get_database
+from fastapi import APIRouter, status
 
-app = FastAPI()
 
-# MongoDB connection
-MONGO_URI = "mongodb+srv://deepa:deepu8%40KM@cluster0.pgqv2i8.mongodb.net/teamdb?retryWrites=true&w=majority"
-client = MongoClient(MONGO_URI)
-db = client["teamdb"]
+
+ep_3=APIRouter()
+db = get_database()
 collection = db["orders_accepted"]
 
 # ---------- MODELS ----------
@@ -19,7 +17,7 @@ class PartsArrivalRequest(BaseModel):
     received_by: str
 
 # ---------- ROUTE ----------
-@app.post("/procurement/arrivals")
+@ep_3.post("/procurement/arrivals", status_code=201)
 def log_parts_arrival(request: PartsArrivalRequest):
     # Check if sales_order_id exists
     existing_doc = collection.find_one({"sales_order_id": request.sales_order_id})

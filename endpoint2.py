@@ -1,14 +1,13 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel
-from pymongo import MongoClient
-from datetime import datetime
+from db import get_database
+from datetime import datetime, timezone
 
-app = FastAPI()
+# Create an APIRouter instance for this endpoint
+ep_2 = APIRouter()
 
 # ---------- DATABASE ----------
-MONGO_URI = "mongodb+srv://deepa:deepu8%40KM@cluster0.pgqv2i8.mongodb.net/teamdb?retryWrites=true&w=majority"
-client = MongoClient(MONGO_URI)
-db = client["teamdb"]
+db=get_database()
 orders_collection = db["orders_accepted"]   # Use same collection as Task 1
 
 # ---------- MODELS ----------
@@ -21,7 +20,7 @@ def generate_purchase_order_id():
     return f"PO-{datetime.now().year}-{count+1:03d}"
 
 # ---------- ROUTE ----------
-@app.post("/procurement/orders")
+@ep_2.post("/procurement/orders")
 def create_purchase_order(order: PurchaseOrderRequest):
     purchase_order_id = generate_purchase_order_id()
     now = datetime.utcnow()
