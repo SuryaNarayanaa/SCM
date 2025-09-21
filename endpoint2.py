@@ -9,7 +9,7 @@ app = FastAPI()
 MONGO_URI = "mongodb+srv://deepa:deepu8%40KM@cluster0.pgqv2i8.mongodb.net/teamdb?retryWrites=true&w=majority"
 client = MongoClient(MONGO_URI)
 db = client["teamdb"]
-orders_collection = db["orders_accepted"]   # Use same collection as Task 1
+orders_collection = db["shipments"]   # Use same collection as Task 1
 
 # ---------- MODELS ----------
 class PurchaseOrderRequest(BaseModel):

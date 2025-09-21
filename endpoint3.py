@@ -10,7 +10,7 @@ app = FastAPI()
 MONGO_URI = "mongodb+srv://deepa:deepu8%40KM@cluster0.pgqv2i8.mongodb.net/teamdb?retryWrites=true&w=majority"
 client = MongoClient(MONGO_URI)
 db = client["teamdb"]
-collection = db["orders_accepted"]
+collection = db["shipments"]
 
 # ---------- MODELS ----------
 class PartsArrivalRequest(BaseModel):

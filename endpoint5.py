@@ -30,7 +30,7 @@ def update_manufacturing_status(batch_id: str, request: UpdateManufacturingReque
 
     # Get database connection and collection
     db = get_database()
-    batches_collection = db['manufacturing_batches'] # Using a descriptive collection name
+    batches_collection = db['shipments'] # Using a descriptive collection name
     
     # Check if a document with the sales_order_id already exists
     existing_batch = batches_collection.find_one({"sales_order_id": request.sales_order_id})
